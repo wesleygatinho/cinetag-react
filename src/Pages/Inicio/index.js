@@ -2,9 +2,17 @@ import styles from './Inicio.module.css'
 import Banner from "../../componentes/Banner";
 import Titulo from "../../componentes/Titulo";
 import Card from "../../componentes/Card";
-import videos from "../../json/db.json";
+import { useEffect, useState } from 'react';
+
 
 const Inicio = () => {
+    const [videos, setVideos] = useState([]);
+
+    useEffect(() => {
+        fetch('https://my-json-server.typicode.com/wesleygatinho/dbjson/videos')
+        .then(res => res.json())
+        .then(dados => setVideos(dados));
+    },[])
     return (
         <>
             

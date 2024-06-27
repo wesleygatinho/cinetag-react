@@ -2,13 +2,19 @@ import Titulo from '../../componentes/Titulo';
 import Banner from '../../componentes/Banner';
 import styles from './Player.module.css';
 import { useParams } from 'react-router-dom';
-import videos from "../../json/db.json";
 import NaoEncontrada from '../../Pages/NaoEncontrada';
+import { useEffect, useState } from 'react';
 const Player = () => {
+    const [video, setVideo] = useState([]);
     const parametros = useParams();
-    const video = videos.find((video) => {
-        return video.id === Number(parametros.id);
-    })
+    
+    useEffect(() => {
+        fetch(`https://my-json-server.typicode.com/wesleygatinho/dbjson/videos?id=${parametros.id}`)
+        .then((response) => response.json())
+        .then(dados => {
+            setVideo(...dados)
+        })
+    },[])
 
     if (!video) {
         return <NaoEncontrada/>
